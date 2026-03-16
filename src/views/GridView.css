@@ -6,6 +6,20 @@
   display: flex;
   justify-content: center;
   padding: 1rem;
-  z-index: 1000;
+  z-index: 10;
+}
+
+@media (orientation: landscape) and (max-height: 500px)  {
+  .pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+      padding: 0;
+    justify-content: center;
+    z-index: 10;
+    max-height: 3rem;
+  }
 }
 

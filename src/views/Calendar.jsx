@@ -19,6 +19,9 @@ const CalendarView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const fetchMatches = async () => {
       try {
@@ -33,7 +36,6 @@ const CalendarView = () => {
           data = await soccerApi.getTeamMatches(id);
           const teamName = location.state?.teamName;
           setPath(['Команды', teamName]);
-          console.log(path)
         }
         
         setMatches(data.matches || []);
@@ -47,6 +49,15 @@ const CalendarView = () => {
 
     fetchMatches();
   }, [type, id, location.state]);
+
+  console.log(path[0])
+  const handleClick = () => {
+  if (path[0] === ('Лиги')) {
+    navigate('/leagues'); 
+  } else {
+    navigate('/teams');  
+  }
+  };
 
   const filteredMatches = useMemo(() => {
     if (!matches.length) return [];
@@ -84,13 +95,14 @@ const CalendarView = () => {
 
 
   if (loading) return <div>Загрузка матчей...</div>;
-  if (error) return <div style={styles.error}>Ошибка: {error}</div>;
+  if (error) return <div>Ошибка: {error}</div>;
 
   return (
-    <div>
-      <div className='breadcrumbs'>
-        {path[0]} &#62; {path[1]}
+    <div style={{ marginTop: "4rem" }}>
+    <div className='breadcrumbs px-3 py-2'>
+        <span onClick={handleClick}>{path[0]}</span> &#62; {path[1]}
       </div>
+<div className="content container-fluid container-md mb-6 container-lg container-xl mt-3 mt-sm-4 mt-md-5 mt-lg-5 mt-xl-5">
       <DatePicker 
         dateFrom={dateFrom}
         dateTo={dateTo}
@@ -102,7 +114,7 @@ const CalendarView = () => {
           Нет матчей за выбранный период
         </div>
       ) : (
-        <div>
+        <div style={{ marginTop: "1.5rem"}}>
           {currentMatches.map(match => (
             <Match key={match.id} match={match} />
           ))}
@@ -115,6 +127,7 @@ const CalendarView = () => {
               onPageChange={setCurrentPage}
             />
           )}
+    </div>
     </div>
   );
 };

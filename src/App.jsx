@@ -12,7 +12,7 @@ function App() {
      <Router>
       <div className="App">
         <Header />
-        <main className="content container-fluid container-md container-lg container-xl mt-header">
+        <main>
           <Routes>
             <Route path="/leagues" element={<GridView pageType="leagues" />} />
             <Route path="/teams" element={<GridView pageType="teams" />} />

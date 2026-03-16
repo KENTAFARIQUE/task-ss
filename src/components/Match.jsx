@@ -59,19 +59,20 @@ const Match = ({ match }) => {
   return (
     <div className="match-card" style={{
         border: '1px solid #ddd',
-        borderRadius: '8px',
         padding: '12px',
-        margin: '8px',
-        backgroundColor: '#f9f9f9'
+        backgroundColor: '#f9f9f9',
+        width: "100%"
         }}>
       
-      <div className="match-info" style={{ marginRight: '10px' }}>
-        <span className="date">{matchDate} </span>
-        <span>{matchTime} </span>
-        <span className="match-status">{getMatchStatus(match.status, match.utcDate)} </span>
-        <span className="team-name">{match.homeTeam?.name || 'Хозяева'} - {match.awayTeam?.name || 'Гости'} </span>
-        <span className="score">{getScore(match.score)} </span>
-      </div>
+      <div className="match-info d-flex align-items-center w-100" style={{ gap: '5px' }}>
+  <span className="date" style={{ minWidth: '85px' }}>{matchDate}</span>
+  <span style={{ minWidth: '50px' }}>{matchTime}</span>
+  <span className="match-status text-nowrap" style={{ minWidth: '80px' }}>{getMatchStatus(match.status, match.utcDate)}</span>
+  <span className="team-name flex-grow-1 text-start">
+    {match.homeTeam?.name || 'Команда А'} - {match.awayTeam?.name || 'Команда Б'}
+  </span>
+  <span className="score text-end" style={{ minWidth: '80px' }}>{getScore(match.score)}</span>
+</div>
     </div>
   );
 };

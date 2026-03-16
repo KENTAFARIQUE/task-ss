@@ -37,8 +37,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   if (totalPages <= 1) return null;
 
   return (
-    <nav aria-label="Page navigation" className="d-flex justify-content-center mt-4">
-      <ul className="pagination">
+    <nav aria-label="Page navigation" className="d-flex justify-content-center">
+      <ul className="pagination mb-0 mb-sm-0 mb-xl-0" style={{ backgroundColor: '#f0f1f2'}}>
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
           <button 
             className="page-link text-dark border-0 bg-transparent rounded-2"
