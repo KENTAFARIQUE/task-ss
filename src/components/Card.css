@@ -1,0 +1,26 @@
+.card { 
+  align-items: center;     
+  text-align: center;    
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 20px;
+}
+.card img {
+  width: 100%;                 
+  max-width: 80%;              
+  height: 100px;
+  aspect-ratio: 1/1.2;       
+  object-fit: contain;
+}
+.card h1 {
+  font-size: 16px; 
+  color: rgb(0, 0, 0);
+}
+
+.card p {
+    font-size: 10px; 
+    color: rgb(0, 0, 0);;
+    padding-bottom: 10px;
+}
+

@@ -1,0 +1,14 @@
+body {
+  background-color: #f0f1f2;
+}
+
+.mt-header {
+  margin-top: 80px; /* высота вашего header */
+}
+
+/* Если header меняет высоту на мобильных */
+@media (max-width: 768px) {
+  .mt-header {
+    margin-top: 60px;
+  }
+}
