@@ -7,23 +7,20 @@ import './App.css'
 function App() {
 
   return (
-     <Router>
+     <Router basename="/task-ss">
       <div className="App">
         <Header />
         <main>
           <div style={{ marginTop: "4rem" }}>
-          <BrowserRouter basename="/task-ss">
             <Routes>
-              <Route path="/" element={<Navigate to="/leagues" replace />} />
+              <Route path="/" element={<Navigate to="/leagues" />} />
               <Route path="/leagues" element={<GridView pageType="leagues" />} />
               <Route path="/teams" element={<GridView pageType="teams" />} />
               <Route path=":type/calendar/:id" element={<CalendarView />} />
             </Routes>
-          </BrowserRouter>
           </div>
         </main> 
       </div>
-      
     </Router>
   )
 }

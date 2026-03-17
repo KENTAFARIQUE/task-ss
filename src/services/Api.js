@@ -1,5 +1,5 @@
 const API_KEY = import.meta.env.VITE_FOOTBALL_API_KEY;
-const BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_FOOTBALL_API_URL;
 
 const headers = {
   'X-Auth-Token': API_KEY,
@@ -8,7 +8,7 @@ const headers = {
 
 async function fetchApi(endpoint) {
   try {
-    const response = await fetch(BASE_URL + endpoint, {
+    const response = await fetch(API_BASE_URL + endpoint, {
       headers: headers
     });
 
