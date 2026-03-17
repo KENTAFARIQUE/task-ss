@@ -23,9 +23,9 @@
 }
 
 .logo svg {
-    width: 100%;        /* занимает всю ширину родителя */
-    height: auto;       /* сохраняет пропорции */
-    display: block;     /* убирает лишние отступы */
+    width: 100%;       
+    height: auto;      
+    display: block;    
 }
 
 .button {

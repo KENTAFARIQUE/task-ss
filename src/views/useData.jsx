@@ -1,4 +1,3 @@
-// hooks/useFootballData.js
 import { useState, useEffect } from 'react';
 import { soccerApi } from '../services/Api';
 
@@ -42,7 +41,6 @@ export function useData(type) {
         
         setData(items.map(config.transform));
       } catch (err) {
-        console.error(`Ошибка загрузки ${type}:`, err);
         setError(err.message || 'Произошла ошибка при загрузке');
         setData([]);
       } finally {

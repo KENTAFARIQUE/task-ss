@@ -24,18 +24,16 @@ const GridView = ({ pageType }) => {
     });
   }, [data, searchTerm]);
 
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-    setCurrentPage(1); 
-  };
-
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredData.slice(startIndex, endIndex);
 
-  if (loading) return <div>Загрузка</div>;
-  if (error) return <div>Ошибка: {error}</div>;
+
+    const handleSearch = (e) => {
+  setSearchTerm(e.target.value);  
+  setCurrentPage(1); 
+};
 
   const handleCardClick = (item) => {
     const path = `./calendar/${item.id}`
@@ -47,8 +45,28 @@ const GridView = ({ pageType }) => {
     });
   };
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return (
+    <div className="container mt-5">
+      <div className="text-center">Загрузка...</div>
+    </div>
+  );
+
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <div className="alert alert-danger text-center shadow-sm" role="alert">
+              <h4 className="alert-heading mb-3">
+                {pageType === 'leagues' ? 'Ошибка загрузки лиг' : 'Ошибка загрузки команд'}
+              </h4>
+              <p className="mb-3">{error}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (!data.length) return <div>No data found</div>;
 
   return (
@@ -67,7 +85,7 @@ const GridView = ({ pageType }) => {
               className="form-control border-0 p-0"
               placeholder={`Search`}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearch}
             />
             </div>
           </div>
@@ -83,7 +101,6 @@ const GridView = ({ pageType }) => {
                     col-xl-3" style={{ width: '156', height: '213', minHeight: '200px' }} >
                                 
           <div className="card h-100 border-0 p-0 d-flex flex-column justify-content-between">
-    {/* Контейнер для картинки - 60% высоты */}
     <div className="d-flex align-items-center justify-content-center" style={{ height: '40%', minHeight: '160px' }}>
       <img 
         src={item.image} 
@@ -99,7 +116,6 @@ const GridView = ({ pageType }) => {
       />
     </div>
     
-    {/* Контейнер для текста - 40% высоты */}
     <div className="d-flex flex-column text-center align-end p-2">
       <div className="fw lh-1">{item.name}</div>
       {item.area && <div className="text-muted small">{item.area}</div>}

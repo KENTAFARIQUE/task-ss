@@ -8,12 +8,12 @@ body {
 }
 @media (orientation: landscape) and (max-height: 800px) {
   .content {
-    margin-bottom: 6rem;  /* уменьшаем отступы в горизонтальном режиме */
+    margin-bottom: 6rem; 
     margin-top: 5rem;
   }
 }
 @media (orientation: portrait) and (min-width: 576px) {
   .content {
-    margin-bottom: 3rem; /* для планшетов и выше */
+    margin-bottom: 3rem; 
   }
 }

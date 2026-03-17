@@ -1,5 +1,3 @@
-import { data } from "react-router";
-
 const API_KEY = import.meta.env.VITE_FOOTBALL_API_KEY;
 const BASE_URL = '/api';
 
@@ -21,9 +19,6 @@ async function fetchApi(endpoint) {
       } catch (e) {
         errorText = 'Не удалось прочитать тело ошибки';
       }
-      
-      console.error('Статус ошибки:', response.status);
-      console.error('Текст ошибки:', errorText);
       
       let errorMessage = `HTTP ${response.status}`;
       
@@ -47,7 +42,6 @@ async function fetchApi(endpoint) {
     return data;
 
   } catch (error) {
-    console.error('Ошибка fetchApi:', error);
     throw error;
   }
 }

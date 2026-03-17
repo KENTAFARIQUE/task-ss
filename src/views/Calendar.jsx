@@ -1,17 +1,15 @@
 import React, { useState, useMemo, useEffect  } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router';
-import { soccerApi } from '../services/Api';
+import { useMatches } from './useMatches';
 import Match from '../components/Match';
 import DatePicker from '../components/DatePicker';
 import Pagination from '../components/Pagination';
 
 const CalendarView = () => {
   const { type, id } = useParams();
-  const location = useLocation();
-  const [matches, setMatches] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { matches, loading, error } = useMatches(type, id);
   const [path, setPath] = useState([]);
+  const location = useLocation();
 
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
@@ -21,43 +19,11 @@ const CalendarView = () => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        setLoading(true);
-        let data;
-        
-        if (type === 'leagues') {
-          data = await soccerApi.getLeagueMatches(id);
-          const leagueName = location.state?.leagueName;
-          setPath(['Лиги', leagueName]);
-        } else if (type === 'teams') {
-          data = await soccerApi.getTeamMatches(id);
-          const teamName = location.state?.teamName;
-          setPath(['Команды', teamName]);
-        }
-        
-        setMatches(data.matches || []);
-      } catch (error) {
-        setError(error)
-        console.error('Ошибка загрузки матчей:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMatches();
-  }, [type, id, location.state]);
-
-  console.log(path[0])
-  const handleClick = () => {
-  if (path[0] === ('Лиги')) {
-    navigate('/leagues'); 
-  } else {
-    navigate('/teams');  
-  }
-  };
+    const sectionName = type === 'leagues' ? 'Лиги' : 'Команды';
+    const itemName = location.state?.[type === 'leagues' ? 'leagueName' : 'teamName'];
+    setPath([sectionName, itemName]); 
+  }, [type, location.state, id]);
 
   const filteredMatches = useMemo(() => {
     if (!matches.length) return [];
@@ -88,17 +54,40 @@ const CalendarView = () => {
     
   }, [matches, dateFrom, dateTo]);
 
+  if (loading) return (
+    <div className="container mt-5">
+      <div className="text-center">Загрузка...</div>
+    </div>
+  );
+  
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <div className="alert alert-danger text-center shadow-sm" role="alert">
+          <h4>Ошибка загрузки матчей</h4>
+          <p>{error}</p>
+        </div>
+      </div>
+      </div>
+      </div>
+    );
+  }
+
+  const handleClick = () => {
+      navigate(path[0] === ('Лиги') ? '/leagues': '/teams'); 
+  };
+
+  
+
   const totalPages = Math.ceil(filteredMatches.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentMatches = filteredMatches.slice(startIndex, endIndex);
 
-
-  if (loading) return <div>Загрузка матчей...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
-
   return (
-    <div style={{ marginTop: "4rem" }}>
+    <>
     <div className='breadcrumbs px-3 py-2'>
         <span onClick={handleClick}>{path[0]}</span> &#62; {path[1]}
       </div>
@@ -128,7 +117,7 @@ const CalendarView = () => {
             />
           )}
     </div>
-    </div>
+    </>
   );
 };
 

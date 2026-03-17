@@ -1,6 +1,6 @@
 const DatePicker = ({ dateFrom, dateTo, onDateFromChange, onDateToChange }) => {
   return (
-    <div className="d-flex align-items-center gap-4">
+    <div className="d-flex align-items-center gap-1 gap-md-4">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
   <label style={{ lineHeight: '1', marginTop: '-15px' }}>Матчи с</label>
   <input
