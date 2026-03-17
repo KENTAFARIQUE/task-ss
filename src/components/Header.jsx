@@ -19,7 +19,7 @@ function Header() {
             onClick={() => navigate('/leagues')}
           >
             Лиги
-           {location.pathname.startsWith('/leagues') && (
+           {location.pathname.includes('leagues') && (
               <div 
                 className="position-absolute start-0 w-100" 
                 style={{ 
@@ -37,7 +37,7 @@ function Header() {
             onClick={() => navigate('/teams')}
           >
             Команды
-            {location.pathname.startsWith('/teams') && (
+            {location.pathname.includes('teams') && (
               <div 
                 className="position-absolute start-0 w-100" 
                 style={{ 
