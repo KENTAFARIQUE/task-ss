@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/KENTAFARIQUE/task-ss",
+  "homepage": "https://kentafarique.github.io/task-ss",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
